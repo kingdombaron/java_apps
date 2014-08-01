@@ -101,26 +101,9 @@ We use Apache Commons DBCP for a data source with connection pooling capability:
    
 <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
- 
-<!--  
-<bean id="transactionManager"
-    class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-    <property name="sessionFactory" ref="sessionFactory" />
-</bean>
---> 
 
+<!-- Configuring Repositories -->
 <jpa:repositories base-package="com.spring.repositories" />
-
-
-<!-- Configuring DAO Bean 
-<bean id="categoriaDao" class="com.spring.model.CategoriaDAOImpl"/>-->
-<!--  
-<bean id="categoriaDao" class="com.spring.model.CategoriaDAOImpl">
-    <constructor-arg>
-        <ref bean="sessionFactory" />
-    </constructor-arg>
-</bean>
- -->
 
  
 </beans>
