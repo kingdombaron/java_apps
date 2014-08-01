@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:mvc="http://www.springframework.org/schema/mvc" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:p="http://www.springframework.org/schema/p"
+ xmlns:tx="http://www.springframework.org/schema/tx"
+ xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+ xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/data/jpa 
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        ">
+        
+ <context:component-scan base-package="com.spring.controller" />
+ 
+ <mvc:annotation-driven content-negotiation-manager="contentManager"/>
+	<bean id="contentManager"
+                class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+                <property name="favorPathExtension" value="true"/>
+                <property name="ignoreAcceptHeader" value="true" />
+                <property name="defaultContentType" value="text/html" />
+                <property name="useJaf" value="false"/>
+                <property name="mediaTypes">
+	                <map>
+	                    <entry key="json" value="application/json" />
+	                    <entry key="html" value="text/html" />
+	                    <entry key="xml" value="application/xml" />
+	                </map>
+                </property>
+     </bean>
+	 <bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	 </bean>
+ 
+ <mvc:annotation-driven />
+ 
+ <mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+ <context:component-scan base-package="com.spring" />
+ 
+ 
+ <context:property-placeholder location="/WEB-INF/jdbc.properties"/>
+ 
+ <!--Configuring DataSource Bean
+
+We use Apache Commons DBCP for a data source with connection pooling capability:  -->
+
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    <property name="driverClass" value="${jdbc.driver_class}"/>
+    <property name="jdbcUrl" value="${jdbc.url}"/>
+    <property name="user" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.password}"/>
+    
+    
+    <!-- these are C3P0 properties -->
+    <property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+    <property name="minPoolSize" value="${jdbc.minPoolSize}" />
+    <property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+    <property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+</bean>
+ 
+ <!-- Configuring SessionFactory Bean  -->
+<bean id="entityManagerFactory"
+    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="packagesToScan" value="com.spring.model" />
+    <property name="jpaVendorAdapter">
+         <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+    </property>
+    <!-- <property name="hibernateProperties">
+         <props>
+            <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+            <prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+         </props>
+     </property> 
+     <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+     --> 
+      <property name="jpaProperties">
+         <props>
+            <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+            <prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+         </props>
+      </property>
+</bean>
+ 
+ 
+<tx:annotation-driven /> 
+<!-- Configuring TransactionManager Bean JPA--> 
+  
+<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" />
+   
+<bean id="persistenceExceptionTranslationPostProcessor"
+      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+ 
+<!--  
+<bean id="transactionManager"
+    class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+</bean>
+--> 
+
+<jpa:repositories base-package="com.spring.repositories" />
+
+
+<!-- Configuring DAO Bean 
+<bean id="categoriaDao" class="com.spring.model.CategoriaDAOImpl"/>-->
+<!--  
+<bean id="categoriaDao" class="com.spring.model.CategoriaDAOImpl">
+    <constructor-arg>
+        <ref bean="sessionFactory" />
+    </constructor-arg>
+</bean>
+ -->
+
+ 
+</beans>
