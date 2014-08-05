@@ -27,11 +27,12 @@ public class CategoriaController {
 	
 	@RequestMapping(value = "/categorias",produces={"application/xml", "application/json"})
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Categorias getCategoria() {
+	public @ResponseBody Categorias getCategorias() {
 		
 		List<Categoria> ListCategoria = categoriaDao.findAll();
 		
 		Categorias categorias = new Categorias(ListCategoria);
+		logger.info("DEVOLVIENDO CATEGORIAS");
 		return  categorias;
 		
 	}
