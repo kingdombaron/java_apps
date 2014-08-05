@@ -13,7 +13,7 @@ public class WebAppInitializer extends
   //{!begin addToRootContext}
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { SecurityConfig.class, PersistenceConfig.class};
+		return new Class<?>[] { SecurityConfig.class, PersistenceConfig.class,CacheConfig.class};
 	}
   //{!end addToRootContext}
 

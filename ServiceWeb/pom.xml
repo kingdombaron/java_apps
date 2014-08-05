@@ -29,7 +29,7 @@
         
         <!-- JAXB2 -->
         <dependency>
-			<groupId>javax.xml</groupId>
+			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.1</version>
 		</dependency>
@@ -234,20 +234,18 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>5.1.30</version>
 		</dependency>
-     
-     <!-- Fin Ejercicio de Servicios Webs -->
-     <dependency>
-     	<groupId>org.springframework.boot</groupId>
-     	<artifactId>spring-boot-starter-hornetq</artifactId>
-     	<version>1.1.4.RELEASE</version>
-     </dependency>
-     <dependency>
-     	<groupId>org.springframework.boot</groupId>
-     	<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-     	<version>1.1.4.RELEASE</version>
-     </dependency>
-  </dependencies>
    
+   
+   		<!-- CACHE GEMFIRE -->
+	   
+	    <dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-gemfire</artifactId>
+			<version>4.0.3.RELEASE</version>
+		</dependency>
+	   
+		
+   </dependencies>
   <build>
    <finalName>ServiceWeb</finalName>
         
