@@ -94,6 +94,12 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>3.2.4.RELEASE</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-faces</artifactId>
+            <version>2.4.1.RELEASE</version>
+        </dependency>
  		
  		<!-- Hibernate -->
  		<dependency>
@@ -263,9 +269,14 @@
 			<artifactId>jsf-impl</artifactId>
 			<version>2.2.7</version>
 		</dependency>
-		
-		
-   </dependencies>
+
+
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.10.4</version>
+		</dependency>
+  </dependencies>
   <build>
    <finalName>ServiceWeb</finalName>
         
